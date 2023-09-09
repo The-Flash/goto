@@ -12,7 +12,7 @@ URL: <input type="text" name="url">
 </form>
 `
 
-var store = NewURLStore()
+var store = NewURLStore("store.gob")
 
 func main() {
 	http.HandleFunc("/", Redirect)
@@ -21,9 +21,6 @@ func main() {
 }
 
 func Redirect(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.URL.Path[1:])
-	fmt.Println(r.URL)
-	fmt.Println(r.URL.Path)
 	key := r.URL.Path[1:]
 	url := store.Get(key)
 	if url == "" {
